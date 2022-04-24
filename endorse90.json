@@ -1,0 +1,122 @@
+// ==UserScript==
+// @name        eR auto endorse
+// @namespace   msg
+// @description Auto endorse articles for spring mission
+// @include     https://www.erepublik.com/*
+// @version     1
+// @grant       none
+// ==/UserScript==
+
+
+
+var zNode       = document.createElement ('div');
+zNode.innerHTML = '<button id="myButton1" type="button">' + 'Endorse 10 articles (1)</button>'
+				+ '<button id="myButton2" type="button">' + 'Endorse 10 articles (2)</button>'
+				+ '<button id="myButton3" type="button">' + 'Endorse 10 articles (3)</button>'
+				+ '<button id="myButton4" type="button">' + 'Endorse 10 articles (4)</button>'
+				+ '<button id="myButton5" type="button">' + 'Endorse 10 articles (5)</button>'
+				+ '<button id="myButton6" type="button">' + 'Endorse 10 articles (6)</button>'
+				+ '<button id="myButton6" type="button">' + 'Endorse 10 articles (7)</button>'
+				+ '<button id="myButton6" type="button">' + 'Endorse 10 articles (8)</button>'
+				+ '<button id="myButton6" type="button">' + 'Endorse 10 articles (9)</button>'
+				;
+zNode.setAttribute ('id', 'myContainer');
+document.body.prepend(zNode);
+
+var amount = 5
+
+async function endorseArticleId (articleID) {
+	var data = new FormData();
+	data.append("articleId", articleID);
+	data.append("amount", amount);
+	data.append("_token", csrfToken);
+
+
+	var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
+
+	xhr.addEventListener("readystatechange", function() {
+	if(this.readyState === 4) {
+		console.log(this.responseText);
+	}
+	});
+
+	xhr.open("POST", "https://www.erepublik.com/en/main/donate-article");
+
+	xhr.send(data);
+}
+
+async function work(articlesURL) {
+	let articlesText = await fetch(articlesURL);
+	let articleResponse = await articlesText.json();
+	let articleList = articleResponse["articles"];
+	amount = articleResponse["endorse"];
+	//articleList = JSON.parse(articleList);
+	
+	articleList.forEach(endorseArticleId)
+}
+
+document.getElementById ("myButton1").addEventListener ("click", ButtonClickAction1, false);
+document.getElementById ("myButton2").addEventListener ("click", ButtonClickAction2, false);
+document.getElementById ("myButton3").addEventListener ("click", ButtonClickAction3, false);
+document.getElementById ("myButton4").addEventListener ("click", ButtonClickAction4, false);
+document.getElementById ("myButton5").addEventListener ("click", ButtonClickAction5, false);
+document.getElementById ("myButton6").addEventListener ("click", ButtonClickAction6, false);
+document.getElementById ("myButton6").addEventListener ("click", ButtonClickAction7, false);
+document.getElementById ("myButton6").addEventListener ("click", ButtonClickAction8, false);
+document.getElementById ("myButton6").addEventListener ("click", ButtonClickAction9, false);
+
+function ButtonClickAction1 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles1.json";
+	document.getElementById("myButton1").disabled = true;
+	work(articlesURL);
+}
+
+function ButtonClickAction2 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles2.json";
+	document.getElementById("myButton2").disabled = true;
+	work(articlesURL);
+}
+
+function ButtonClickAction3 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles3.json";
+	document.getElementById("myButton3").disabled = true;
+	work(articlesURL);
+}
+
+function ButtonClickAction4 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles4.json";
+	document.getElementById("myButton4").disabled = true;
+	work(articlesURL);
+}
+
+function ButtonClickAction5 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles5.json";
+	document.getElementById("myButton5").disabled = true;
+	work(articlesURL);
+}
+
+function ButtonClickAction6 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles6.json";
+	document.getElementById("myButton6").disabled = true;
+	work(articlesURL);
+}
+
+function ButtonClickAction6 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles7.json";
+	document.getElementById("myButton6").disabled = true;
+	work(articlesURL);
+}
+
+function ButtonClickAction6 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles8.json";
+	document.getElementById("myButton6").disabled = true;
+	work(articlesURL);
+}
+
+function ButtonClickAction6 (zEvent) {
+	let articlesURL = "https://raw.githubusercontent.com/anon-erpk/endorse-erep/main/articles9.json";
+	document.getElementById("myButton6").disabled = true;
+	work(articlesURL);
+}
+
